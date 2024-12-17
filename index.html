@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="password_gen.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Password Generator</h1>
+        <div class="input-section">
+            <input type="text" id="password" placeholder="Generated Password" readonly>
+            <button id="generateBtn">Generate</button>
+        </div>
+        <div class="options">
+            <label>Password Length: 
+                <input type="number" id="length" min="4" max="20" value="12">
+            </label>
+            <label>
+                <input type="checkbox" id="includeNumbers" checked> Numbers
+            </label>
+            <label>
+                <input type="checkbox" id="includeSymbols" checked> Symbols
+            </label>
+        </div>
+    </div>
+    <script>
+        const passwordOutput = document.getElementById("password");
+        const generateBtn = document.getElementById("generateBtn");
+        const lengthInput = document.getElementById("length");
+        const includeNumbers = document.getElementById("includeNumbers");
+        const includeSymbols = document.getElementById("includeSymbols");
+
+        const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const numbers = "0123456789";
+        const symbols = "!@#$%^&*()_+-=[]{}|;:',.<>?/";
+
+        generateBtn.addEventListener("click", () => {
+            let charset = letters;
+            if (includeNumbers.checked) charset += numbers;
+            if (includeSymbols.checked) charset += symbols;
+
+            const length = parseInt(lengthInput.value);
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            passwordOutput.value = password;
+        });
+    </script>
+</body>
+</html>
